@@ -1,0 +1,27 @@
+# This file contains additional build requirements that did not get
+# picked up automatically. One name per line, no whitespace.
+pcre-dev
+libevent-dev
+boost-dev
+curl-dev
+libxml2-dev
+icu4c-dev
+tbb-dev
+onig-dev
+openssl-dev
+readline-dev
+elfutils-dev
+libdwarf-dev
+libcap-dev
+glog-dev
+gperf
+lz4-dev
+bzip2-dev
+double-conversion-dev
+ocaml
+ocamlbuild
+freetype-dev
+gmp-dev
+libmemcached-dev
+openldap-dev
+ncurses-dev
