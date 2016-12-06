@@ -45,6 +45,7 @@ BuildRequires : libxml2-dev
 BuildRequires : lz4-dev
 BuildRequires : ncurses-dev
 BuildRequires : ocaml
+BuildRequires : ocaml-lib
 BuildRequires : ocamlbuild
 BuildRequires : onig-dev
 BuildRequires : openldap-dev
@@ -61,13 +62,10 @@ BuildRequires : python3-dev
 BuildRequires : readline-dev
 BuildRequires : setuptools
 BuildRequires : tbb-dev
+BuildRequires : util-linux-bin
 
 %description
-Thrift is a software framework for scalable cross-language services
-development. It combines a powerful software stack with a code generation
-engine to build services that work efficiently and seamlessly between C++,
-Java, C#, Python, Ruby, Perl, PHP, Objective C/Cocoa, Smalltalk, Erlang,
-Objective Caml, and Haskell.
+HipHop Virtual Machine is a virtual machine that executes PHP and Hack.
 
 %prep
 tar -xf %{SOURCE13}
