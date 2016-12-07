@@ -23,6 +23,7 @@ Source13  : https://github.com/hhvm/hhvm-third-party/archive/af252b08f715a0e3481
 Source14  : https://github.com/lz4/lz4/archive/d86dc916771c126afb797637dda9f6421c0cb998.tar.gz
 Source15  : https://github.com/nih-at/libzip/archive/1d8b1ac4d20b8ef8d3f5d496dabebaa0ff9019ff.tar.gz
 Patch1:	  0001-fix_70932.patch
+Patch2:	  0002-Work-around-gcc-compiler-bug
 Summary  : RPC and serialization framework
 Group    : Development/Tools
 License  : Apache-2.0 Artistic-1.0 BSD-2-Clause BSD-3-Clause BSD-3-Clause-Attribution BSD-3-Clause-Clear CC-BY-SA-2.0 GPL-2.0 LGPL-2.0 LGPL-2.1 MIT OpenSSL PHP-3.01 Zend-2.0 Zlib bzip2-1.0.6
@@ -118,6 +119,7 @@ mv %{_topdir}/BUILD/brotli-98ed7a23a83d64133b0a36a884e489bffb0eb864/* %{_topdir}
 mkdir -p %{_topdir}/BUILD/hhvm-HHVM-3.15.0/third-party/fastlz/src/
 mv %{_topdir}/BUILD/FastLZ-f1217348a868bdb9ee0730244475aee05ab329c5/* %{_topdir}/BUILD/hhvm-HHVM-3.15.0/third-party/fastlz/src/
 %patch1 -p2
+%patch2 -p1
 
 %build
 export LANG=C
