@@ -1,0 +1,26 @@
+From b6be5bc758a2980ec1aa136569a6867de71f5a66 Mon Sep 17 00:00:00 2001
+From: Icarus Sparry <icarus.w.sparry@intel.com>
+Date: Thu, 8 Dec 2016 17:51:39 -0800
+Subject: [PATCH 3/4] Build break - typing_env.ml, remove unused modules
+
+Signed-off-by: Icarus Sparry <icarus.w.sparry@intel.com>
+---
+ hphp/hack/src/typing/typing_env.ml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/hphp/hack/src/typing/typing_env.ml b/hphp/hack/src/typing/typing_env.ml
+index e4833a6..da5dbb0 100644
+--- a/hphp/hack/src/typing/typing_env.ml
++++ b/hphp/hack/src/typing/typing_env.ml
+@@ -13,7 +13,7 @@ open Decl_env
+ open Typing_defs
+ open Nast
+ 
+-module SN = Naming_special_names
++(* module SN = Naming_special_names *)
+ module Dep = Typing_deps.Dep
+ module TLazyHeap = Typing_lazy_heap
+ 
+-- 
+2.11.0
+

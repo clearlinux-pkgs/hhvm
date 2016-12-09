@@ -1,0 +1,31 @@
+From c48b859490962e96d857c13960052767001e3780 Mon Sep 17 00:00:00 2001
+From: Icarus Sparry <icarus.w.sparry@intel.com>
+Date: Fri, 9 Dec 2016 11:13:12 -0800
+Subject: [PATCH 4/4] build fix - ignore logical or errors
+
+Less drastic than
+https://github.com/facebook/hhvm/commit/3193b1159d1579fa56dd6aa5ec58c025228626e7
+which was committed on Sep 20 2016, this says to ignore the valid
+warning about incorrect code rather than turn off the conversion of
+warnings to errors.
+
+Signed-off-by: Icarus Sparry <icarus.w.sparry@intel.com>
+---
+ hphp/hack/src/_tags | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/hphp/hack/src/_tags b/hphp/hack/src/_tags
+index 800a0aa..c8d6d7b 100644
+--- a/hphp/hack/src/_tags
++++ b/hphp/hack/src/_tags
+@@ -1,6 +1,7 @@
+ <**/*.ml*>: ocaml, warn_A, warn(-3-4-6-29-35-44-48-50-52), warn_error_A
+ <*.ml*>: warn(-27)
+ <client/*.ml*>: warn(-27)
++<decl/decl_compare.ml>: warn(-57)
+ <deps/*.ml*>: warn(-27)
+ <dfind/*.ml*>: warn(-27)
+ <format/*.ml*>: warn(-27)
+-- 
+2.11.0
+

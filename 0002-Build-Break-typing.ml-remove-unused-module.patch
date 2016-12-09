@@ -1,0 +1,26 @@
+From b159c10622fd004526145db238b8eebd8cade052 Mon Sep 17 00:00:00 2001
+From: Icarus Sparry <icarus.w.sparry@intel.com>
+Date: Thu, 8 Dec 2016 18:00:32 -0800
+Subject: [PATCH 2/4] Build Break - typing.ml remove unused module
+
+Signed-off-by: Icarus Sparry <icarus.w.sparry@intel.com>
+---
+ hphp/hack/src/typing/typing.ml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/hphp/hack/src/typing/typing.ml b/hphp/hack/src/typing/typing.ml
+index e6a9bb4..8d61df9 100644
+--- a/hphp/hack/src/typing/typing.ml
++++ b/hphp/hack/src/typing/typing.ml
+@@ -32,7 +32,7 @@ module SubType      = Typing_subtype
+ module Unify        = Typing_unify
+ module TGen         = Typing_generic
+ module SN           = Naming_special_names
+-module TAccess      = Typing_taccess
++(* module TAccess      = Typing_taccess *)
+ module TI           = Typing_instantiability
+ module TVis         = Typing_visibility
+ module TNBody       = Typing_naming_body
+-- 
+2.11.0
+

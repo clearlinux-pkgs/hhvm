@@ -25,6 +25,11 @@ Source15  : https://github.com/nih-at/libzip/archive/1d8b1ac4d20b8ef8d3f5d496dab
 Patch1:	  0001-fix_70932.patch
 Patch2:	  0002-Work-around-gcc-compiler-bug
 Patch3:	  0003-Ocaml-compatability
+Patch4:	  0001-Build-break-typing.ml-remove-unused-module.patch
+Patch5:	  0002-Build-Break-typing.ml-remove-unused-module.patch
+Patch6:	  0003-Build-break-typing_env.ml-remove-unused-modules.patch
+Patch7:	  0004-build-fix-ignore-logical-or-errors.patch
+
 Summary  : RPC and serialization framework
 Group    : Development/Tools
 License  : Apache-2.0 Artistic-1.0 BSD-2-Clause BSD-3-Clause BSD-3-Clause-Attribution BSD-3-Clause-Clear CC-BY-SA-2.0 GPL-2.0 LGPL-2.0 LGPL-2.1 MIT OpenSSL PHP-3.01 Zend-2.0 Zlib bzip2-1.0.6
@@ -124,6 +129,10 @@ mv %{_topdir}/BUILD/FastLZ-f1217348a868bdb9ee0730244475aee05ab329c5/* %{_topdir}
 %patch1 -p2
 %patch2 -p1
 %patch3 -p2
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
 
 %build
 export LANG=C
