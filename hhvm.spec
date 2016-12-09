@@ -34,12 +34,14 @@ BuildRequires : cmake
 BuildRequires : cmake-dev
 BuildRequires : curl-dev
 BuildRequires : double-conversion-dev
+BuildRequires : e2fsprogs-dev
 BuildRequires : elfutils-dev
 BuildRequires : freetype-dev
 BuildRequires : glog-dev
 BuildRequires : gmp-dev
 BuildRequires : gperf
 BuildRequires : icu4c-dev
+BuildRequires : krb5-dev
 BuildRequires : libcap-dev
 BuildRequires : libdwarf-dev
 BuildRequires : libevent-dev
