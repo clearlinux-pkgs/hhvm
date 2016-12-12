@@ -1,0 +1,38 @@
+From c3b0f4df9a46af72cb598a63fac89b1b92e3bdba Mon Sep 17 00:00:00 2001
+From: Icarus Sparry <icarus.w.sparry@intel.com>
+Date: Mon, 12 Dec 2016 22:08:59 +0000
+Subject: [PATCH] Disable RC4 algorithm fallback for signature checks.
+
+Our SSL library no longer supports RC4, so this will fail to
+link.
+---
+ hphp/runtime/ext/openssl/ext_openssl.cpp | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/hphp/runtime/ext/openssl/ext_openssl.cpp b/hphp/runtime/ext/openssl/ext_openssl.cpp
+index 7cb8a1a..9f08f77 100644
+--- a/hphp/runtime/ext/openssl/ext_openssl.cpp
++++ b/hphp/runtime/ext/openssl/ext_openssl.cpp
+@@ -1135,7 +1135,8 @@ bool HHVM_FUNCTION(openssl_open, const String& sealed_data, VRefParam open_data,
+                                  const String& iv /* = null_string */) {
+   const EVP_CIPHER *cipher_type;
+   if (method.empty()) {
+-    cipher_type = EVP_rc4();
++    raise_warning("RC4 disabled, no fallback signature algorithm");
++    return false;
+   } else {
+     cipher_type = EVP_get_cipherbyname(method.c_str());
+     if (!cipher_type) {
+@@ -2040,7 +2041,8 @@ Variant HHVM_FUNCTION(openssl_seal, const String& data, VRefParam sealed_data,
+ 
+   const EVP_CIPHER *cipher_type;
+   if (method.empty()) {
+-    cipher_type = EVP_rc4();
++    raise_warning("RC4 disabled, no fallback signature algorithm");
++    return false;
+   } else {
+     cipher_type = EVP_get_cipherbyname(method.c_str());
+     if (!cipher_type) {
+-- 
+2.11.0
+

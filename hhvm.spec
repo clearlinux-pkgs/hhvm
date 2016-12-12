@@ -29,6 +29,7 @@ Patch4:	  0001-Build-break-typing.ml-remove-unused-module.patch
 Patch5:	  0002-Build-Break-typing.ml-remove-unused-module.patch
 Patch6:	  0003-Build-break-typing_env.ml-remove-unused-modules.patch
 Patch7:	  0004-build-fix-ignore-logical-or-errors.patch
+Patch8:	  0001-Disable-RC4-algorithm-fallback-for-signature-checks.patch
 
 Summary  : RPC and serialization framework
 Group    : Development/Tools
@@ -133,6 +134,7 @@ mv %{_topdir}/BUILD/FastLZ-f1217348a868bdb9ee0730244475aee05ab329c5/* %{_topdir}
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 export LANG=C
