@@ -1,16 +1,16 @@
 From 91e1c2c5f84e21f92a9bbee5f63939ffbac11a00 Mon Sep 17 00:00:00 2001
-From: root <root@icarus-nuc1.sc.intel.com>
+From: root <root@localhost>
 Date: Tue, 6 Dec 2016 23:55:57 +0000
 Subject: [PATCH] fix_70932
 
 ---
- hhvm-HHVM-3.15.0/third-party/re2/src/re2/dfa.cc | 6 ++++++
+ third-party/re2/src/re2/dfa.cc | 6 ++++++
  1 file changed, 6 insertions(+)
 
-diff --git a/hhvm-HHVM-3.15.0/third-party/re2/src/re2/dfa.cc b/hhvm-HHVM-3.15.0/third-party/re2/src/re2/dfa.cc
+diff --git a/third-party/re2/src/re2/dfa.cc b/hhvm-HHVM-3.15.0/third-party/re2/src/re2/dfa.cc
 index 483f678..1dba09f 100644
---- a/hhvm-HHVM-3.15.0/third-party/re2/src/re2/dfa.cc
-+++ b/hhvm-HHVM-3.15.0/third-party/re2/src/re2/dfa.cc
+--- a/third-party/re2/src/re2/dfa.cc
++++ b/third-party/re2/src/re2/dfa.cc
 @@ -101,7 +101,13 @@ class DFA {
      uint flag_;         // Empty string bitfield flags in effect on the way
                          // into this state, along with kFlagMatch if this

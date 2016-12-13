@@ -1,7 +1,7 @@
-diff --git a/hhvm-HHVM-3.15.0/hphp/hack/src/heap/hh_shared.c b/hhvm-HHVM-3.15.0/hphp/hack/src/heap/hh_shared.c
+diff --git a/hphp/hack/src/heap/hh_shared.c b/hphp/hack/src/heap/hh_shared.c
 index 51fa170..01575e0 100644
---- a/hhvm-HHVM-3.15.0/hphp/hack/src/heap/hh_shared.c
-+++ b/hhvm-HHVM-3.15.0/hphp/hack/src/heap/hh_shared.c
+--- a/hphp/hack/src/heap/hh_shared.c
++++ b/hphp/hack/src/heap/hh_shared.c
 @@ -486,7 +486,7 @@ static void raise_failed_anonymous_memfd_init() {
  }
  

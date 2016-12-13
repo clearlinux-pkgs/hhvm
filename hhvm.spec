@@ -22,15 +22,15 @@ Source12  : https://github.com/google/re2/archive/718df09610fee584c9038d8d519697
 Source13  : https://github.com/hhvm/hhvm-third-party/archive/af252b08f715a0e348175d0754d533949f2e390c.tar.gz
 Source14  : https://github.com/lz4/lz4/archive/d86dc916771c126afb797637dda9f6421c0cb998.tar.gz
 Source15  : https://github.com/nih-at/libzip/archive/1d8b1ac4d20b8ef8d3f5d496dabebaa0ff9019ff.tar.gz
-Patch1:	  0001-fix_70932.patch
-Patch2:	  0002-Work-around-gcc-compiler-bug
-Patch3:	  0003-Ocaml-compatability
-Patch4:	  0001-Build-break-typing.ml-remove-unused-module.patch
-Patch5:	  0002-Build-Break-typing.ml-remove-unused-module.patch
-Patch6:	  0003-Build-break-typing_env.ml-remove-unused-modules.patch
-Patch7:	  0004-build-fix-ignore-logical-or-errors.patch
-Patch8:	  0001-Disable-RC4-algorithm-fallback-for-signature-checks.patch
-
+Patch1   : 0001-fix_70932.patch
+Patch2   : 0002-Work-around-gcc-compiler-bug.patch
+Patch3   : 0003-Ocaml-compatability.patch
+Patch4   : 0004-Build-break-typing.ml-remove-unused-module.patch
+Patch5   : 0005-Build-Break-typing.ml-remove-unused-module.patch
+Patch6   : 0006-Build-break-typing_env.ml-remove-unused-modules.patch
+Patch7   : 0007-build-fix-ignore-logical-or-errors.patch
+Patch8   : 0008-Disable-RC4-algorithm-fallback-for-signature-checks.patch
+Patch9   : 0009-ocaml-ignore-warn_err.patch
 Summary  : RPC and serialization framework
 Group    : Development/Tools
 License  : Apache-2.0 Artistic-1.0 BSD-2-Clause BSD-3-Clause BSD-3-Clause-Attribution BSD-3-Clause-Clear CC-BY-SA-2.0 GPL-2.0 LGPL-2.0 LGPL-2.1 MIT OpenSSL PHP-3.01 Zend-2.0 Zlib bzip2-1.0.6
@@ -127,14 +127,15 @@ mkdir -p %{_topdir}/BUILD/hhvm-HHVM-3.15.0/third-party/brotli/src/
 mv %{_topdir}/BUILD/brotli-98ed7a23a83d64133b0a36a884e489bffb0eb864/* %{_topdir}/BUILD/hhvm-HHVM-3.15.0/third-party/brotli/src/
 mkdir -p %{_topdir}/BUILD/hhvm-HHVM-3.15.0/third-party/fastlz/src/
 mv %{_topdir}/BUILD/FastLZ-f1217348a868bdb9ee0730244475aee05ab329c5/* %{_topdir}/BUILD/hhvm-HHVM-3.15.0/third-party/fastlz/src/
-%patch1 -p2
+%patch1 -p1
 %patch2 -p1
-%patch3 -p2
+%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 export LANG=C
