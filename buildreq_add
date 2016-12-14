@@ -25,3 +25,5 @@ gmp-dev
 libmemcached-dev
 openldap-dev
 ncurses-dev
+krb5-dev
+e2fsprogs-dev
