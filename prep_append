@@ -1,0 +1,4 @@
+# Setup the environment to remove the arguement that is incompatible with
+# the gold linker
+echo 'CFLAGS=${CFLAGS/-Wl,--copy-dt-needed-entries/}' >> /builddir/.bashrc
+echo 'CXXFLAGS=${CXXFLAGS/-Wl,--copy-dt-needed-entries/}' >> /builddir/.bashrc
