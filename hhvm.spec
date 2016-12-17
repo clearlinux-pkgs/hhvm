@@ -4,7 +4,7 @@
 #
 Name     : hhvm
 Version  : 3.15.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/facebook/hhvm/archive/HHVM-3.15.0.tar.gz
 Source0  : https://github.com/facebook/hhvm/archive/HHVM-3.15.0.tar.gz
 Source1  : https://github.com/Cyan4973/lz4/archive/d86dc916771c126afb797637dda9f6421c0cb998.tar.gz
@@ -27,7 +27,7 @@ Source17  : https://github.com/hhvm/hhvm-third-party/archive/415fe3a6cb677d2e13a
 Source18  : https://github.com/nih-at/libzip/archive/1d8b1ac4d20b8ef8d3f5d496dabebaa0ff9019ff.tar.gz
 Summary  : RPC and serialization framework
 Group    : Development/Tools
-License  : Apache-2.0 Artistic-1.0 BSD-2-Clause BSD-3-Clause BSD-3-Clause-Attribution BSD-3-Clause-Clear CC-BY-SA-2.0 GPL-2.0 LGPL-2.0 LGPL-2.1 License-2.0 MIT OpenSSL PHP-3.01 Zend-2.0 Zlib bzip2-1.0.6
+License  : Apache-2.0 Artistic-1.0 BSD-2-Clause BSD-3-Clause BSD-3-Clause-Attribution BSD-3-Clause-Clear CC-BY-SA-2.0 GPL-2.0 LGPL-2.0 LGPL-2.1 MIT OpenSSL PHP-3.01 Zend-2.0 Zlib bzip2-1.0.6
 Requires: hhvm-bin
 Requires: hhvm-data
 BuildRequires : boost-dev
@@ -77,7 +77,6 @@ Patch6: 0006-Build-break-typing_env.ml-remove-unused-modules.patch
 Patch7: 0007-build-fix-ignore-logical-or-errors.patch
 Patch8: 0008-Disable-RC4-algorithm-fallback-for-signature-checks.patch
 Patch9: 0009-ocaml-ignore-warn_err.patch
-Patch10: 0010-fix_CFLAGS.patch
 
 %description
 Thrift is a software framework for scalable cross-language services
@@ -180,7 +179,6 @@ mv %{_topdir}/BUILD/rocksdb-dcc898b0215cee3b1baa88149c1f39e37e9bfd09/* %{_topdir
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
-%patch10 -p1
 
 %build
 export LANG=C
