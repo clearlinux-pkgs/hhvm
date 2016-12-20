@@ -79,11 +79,7 @@ Patch8: 0008-Disable-RC4-algorithm-fallback-for-signature-checks.patch
 Patch9: 0009-ocaml-ignore-warn_err.patch
 
 %description
-Thrift is a software framework for scalable cross-language services
-development. It combines a powerful software stack with a code generation
-engine to build services that work efficiently and seamlessly between C++,
-Java, C#, Python, Ruby, Perl, PHP, Objective C/Cocoa, Smalltalk, Erlang,
-Objective Caml, and Haskell.
+HHVM is a virtual machine for running php and hack.
 
 %package bin
 Summary: bin components for the hhvm package.
