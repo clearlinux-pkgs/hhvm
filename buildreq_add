@@ -11,6 +11,7 @@ onig-dev
 openssl-dev
 readline-dev
 elfutils-dev
+elfutils-extras
 libdwarf-dev
 libcap-dev
 glog-dev
