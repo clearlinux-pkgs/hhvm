@@ -4,7 +4,7 @@
 #
 Name     : hhvm
 Version  : 3.15.0
-Release  : 2
+Release  : 3
 URL      : https://github.com/facebook/hhvm/archive/HHVM-3.15.0.tar.gz
 Source0  : https://github.com/facebook/hhvm/archive/HHVM-3.15.0.tar.gz
 Source1  : https://github.com/Cyan4973/lz4/archive/d86dc916771c126afb797637dda9f6421c0cb998.tar.gz
@@ -37,6 +37,7 @@ BuildRequires : curl-dev
 BuildRequires : double-conversion-dev
 BuildRequires : e2fsprogs-dev
 BuildRequires : elfutils-dev
+BuildRequires : elfutils-extras
 BuildRequires : freetype-dev
 BuildRequires : glog-dev
 BuildRequires : gmp-dev
@@ -77,6 +78,9 @@ Patch6: 0006-Build-break-typing_env.ml-remove-unused-modules.patch
 Patch7: 0007-build-fix-ignore-logical-or-errors.patch
 Patch8: 0008-Disable-RC4-algorithm-fallback-for-signature-checks.patch
 Patch9: 0009-ocaml-ignore-warn_err.patch
+
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 HHVM is a virtual machine for running php and hack.
@@ -187,7 +191,7 @@ export CFLAGS="$CFLAGS -std=gnu++98 "
 export FCFLAGS="$CFLAGS -std=gnu++98 "
 export FFLAGS="$CFLAGS -std=gnu++98 "
 export CXXFLAGS="$CXXFLAGS -std=gnu++98 "
-cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib64 -Wno-dev -DMYSQL_UNIX_SOCK_ADDR=/run/mariadb/mariadb.sock -DENABLE_ZEND_COMPAT=FALSE -DENABLE_EXTENSION_MCRYPT:BOOL=OFF
+cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib64 -Wno-dev -DMYSQL_UNIX_SOCK_ADDR=/run/mariadb/mariadb.sock -DENABLE_ZEND_COMPAT=FALSE -DENABLE_EXTENSION_MCRYPT:BOOL=OFF
 make VERBOSE=1  %{?_smp_mflags}
 popd
 
