@@ -4,7 +4,7 @@
 #
 Name     : hhvm
 Version  : 3.15.0
-Release  : 3
+Release  : 2
 URL      : https://github.com/facebook/hhvm/archive/HHVM-3.15.0.tar.gz
 Source0  : https://github.com/facebook/hhvm/archive/HHVM-3.15.0.tar.gz
 Source1  : https://github.com/Cyan4973/lz4/archive/d86dc916771c126afb797637dda9f6421c0cb998.tar.gz
@@ -37,12 +37,12 @@ BuildRequires : curl-dev
 BuildRequires : double-conversion-dev
 BuildRequires : e2fsprogs-dev
 BuildRequires : elfutils-dev
-BuildRequires : elfutils-extras
 BuildRequires : freetype-dev
 BuildRequires : glog-dev
 BuildRequires : gmp-dev
 BuildRequires : gperf
 BuildRequires : icu4c-dev
+BuildRequires : jemalloc-dev
 BuildRequires : krb5-dev
 BuildRequires : libcap-dev
 BuildRequires : libdwarf-dev
@@ -79,11 +79,12 @@ Patch7: 0007-build-fix-ignore-logical-or-errors.patch
 Patch8: 0008-Disable-RC4-algorithm-fallback-for-signature-checks.patch
 Patch9: 0009-ocaml-ignore-warn_err.patch
 
-%define __strip /bin/true
-%define debug_package %{nil}
-
 %description
-HHVM is a virtual machine for running php and hack.
+Thrift is a software framework for scalable cross-language services
+development. It combines a powerful software stack with a code generation
+engine to build services that work efficiently and seamlessly between C++,
+Java, C#, Python, Ruby, Perl, PHP, Objective C/Cocoa, Smalltalk, Erlang,
+Objective Caml, and Haskell.
 
 %package bin
 Summary: bin components for the hhvm package.
@@ -182,20 +183,21 @@ mv %{_topdir}/BUILD/rocksdb-dcc898b0215cee3b1baa88149c1f39e37e9bfd09/* %{_topdir
 
 %build
 export LANG=C
+export SOURCE_DATE_EPOCH=1485903145
 mkdir clr-build
 pushd clr-build
-export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z -Wl,now -Wl,-z -Wl,relro -Wl,-z,max-page-size=0x1000 -m64 -march=westmere -mtune=haswell"
-export CXXFLAGS=$CFLAGS
-unset LDFLAGS
+CXXFLAGS=${CXXFLAGS// -Wl,--copy-dt-needed-entries/}
+CFLAGS=${CFLAGS// -Wl,--copy-dt-needed-entries/}
 export CFLAGS="$CFLAGS -std=gnu++98 "
 export FCFLAGS="$CFLAGS -std=gnu++98 "
 export FFLAGS="$CFLAGS -std=gnu++98 "
 export CXXFLAGS="$CXXFLAGS -std=gnu++98 "
-cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib64 -Wno-dev -DMYSQL_UNIX_SOCK_ADDR=/run/mariadb/mariadb.sock -DENABLE_ZEND_COMPAT=FALSE -DENABLE_EXTENSION_MCRYPT:BOOL=OFF
+cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib64 -Wno-dev -DMYSQL_UNIX_SOCK_ADDR=/run/mariadb/mariadb.sock -DENABLE_ZEND_COMPAT=FALSE -DENABLE_EXTENSION_MCRYPT:BOOL=OFF
 make VERBOSE=1  %{?_smp_mflags}
 popd
 
 %install
+export SOURCE_DATE_EPOCH=1485903145
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
