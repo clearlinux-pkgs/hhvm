@@ -69,7 +69,7 @@ BuildRequires : scons
 BuildRequires : setuptools
 BuildRequires : tbb-dev
 # Suppress stripping binaries
-%define __strip /bin/true
+%define __strip /usr/bin/eu-strip -S
 %define debug_package %{nil}
 Patch1: 0001-fix_70932.patch
 Patch2: 0002-Work-around-gcc-compiler-bug.patch
