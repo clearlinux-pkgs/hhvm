@@ -195,8 +195,7 @@ export FCFLAGS="$CFLAGS -std=gnu++98 "
 export FFLAGS="$CFLAGS -std=gnu++98 "
 export CXXFLAGS="$CXXFLAGS -std=gnu++98 "
 cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib64 -Wno-dev -DMYSQL_UNIX_SOCK_ADDR=/run/mariadb/mariadb.sock -DENABLE_ZEND_COMPAT=FALSE -DENABLE_EXTENSION_MCRYPT:BOOL=OFF
-make VERBOSE=1  
-###%{?_smp_mflags}
+make VERBOSE=1 %{?_smp_mflags}
 popd
 
 %install
