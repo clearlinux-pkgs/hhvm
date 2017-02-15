@@ -1,0 +1,49 @@
+From 6860e36277fc0b576a5fb3fa55c01cd4593ca060 Mon Sep 17 00:00:00 2001
+From: Auke Kok <auke-jan.h.kok@intel.com>
+Date: Tue, 14 Feb 2017 13:40:38 -0800
+Subject: [PATCH] Stateless: Make hhvm more stateless.
+
+- consider /usr/share/defaults/hhvm/*.ini before other /etc/ files
+- unlink socket file before binding to it
+- allow user httpd rw access to hhvm.sock through ACL
+---
+ hphp/runtime/base/program-functions.cpp        | 1 +
+ hphp/runtime/server/fastcgi/fastcgi-server.cpp | 3 +++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/hphp/runtime/base/program-functions.cpp b/hphp/runtime/base/program-functions.cpp
+index a6a9c84..aafc782 100644
+--- a/hphp/runtime/base/program-functions.cpp
++++ b/hphp/runtime/base/program-functions.cpp
+@@ -1473,6 +1473,7 @@ static int execute_program_impl(int argc, char** argv) {
+           Logger::Verbose("Using default config file: %s", filename);
+           po.config.push_back(filename);
+         };
++        add_default_config_files_globbed("/usr/share/defaults/hhvm/*ini", file_callback);
+         add_default_config_files_globbed(DEFAULT_CONFIG_DIR "/php*.ini",
+                                          file_callback);
+         add_default_config_files_globbed(DEFAULT_CONFIG_DIR "/config*.hdf",
+diff --git a/hphp/runtime/server/fastcgi/fastcgi-server.cpp b/hphp/runtime/server/fastcgi/fastcgi-server.cpp
+index e634d3c..bf98b60 100644
+--- a/hphp/runtime/server/fastcgi/fastcgi-server.cpp
++++ b/hphp/runtime/server/fastcgi/fastcgi-server.cpp
+@@ -101,6 +101,8 @@ void FastCGIServer::start() {
+   // It's not safe to call this function more than once
+   m_socket.reset(new folly::AsyncServerSocket(m_worker.getEventBase()));
+   try {
++    auto path = m_socketConfig.bindAddress.getPath();
++    unlink(path.c_str());
+     m_socket->bind(m_socketConfig.bindAddress);
+   } catch (const std::system_error& ex) {
+     LOG(ERROR) << ex.what();
+@@ -113,6 +115,7 @@ void FastCGIServer::start() {
+   if (m_socketConfig.bindAddress.getFamily() == AF_UNIX) {
+     auto path = m_socketConfig.bindAddress.getPath();
+     chmod(path.c_str(), 0760);
++    system("/usr/bin/setfacl -m u:httpd:rw /run/hhvm/hhvm.sock");
+   }
+   m_acceptor.reset(new FastCGIAcceptor(m_socketConfig, this));
+   m_acceptor->init(m_socket.get(), m_worker.getEventBase());
+-- 
+2.11.1
+

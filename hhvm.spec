@@ -3,7 +3,7 @@
 #
 Name     : hhvm
 Version  : 3.17.2
-Release  : 3
+Release  : 4
 URL      : https://github.com/facebook/hhvm/archive/HHVM-3.17.2.tar.gz
 Source0  : https://github.com/facebook/hhvm/archive/HHVM-3.17.2.tar.gz
 Source1  : https://github.com/Cyan4973/lz4/archive/d86dc916771c126afb797637dda9f6421c0cb998.tar.gz
@@ -24,11 +24,14 @@ Source15  : https://github.com/google/double-conversion/archive/f1b955eee1cb94c5
 Source16  : https://github.com/google/re2/archive/718df09610fee584c9038d8d519697e507e09c9b.tar.gz
 Source17  : https://github.com/hhvm/hhvm-third-party/archive/5b6b32f9ae874f280b38dcc3a8e737e1e606a447.tar.gz
 Source18  : https://github.com/nih-at/libzip/archive/1d8b1ac4d20b8ef8d3f5d496dabebaa0ff9019ff.tar.gz
+Source19  : server.ini
+Source20  : hhvm.service
 Summary  : RPC and serialization framework
 Group    : Development/Tools
 License  : Apache-2.0 Artistic-1.0 BSD-2-Clause BSD-3-Clause BSD-3-Clause-Attribution BSD-3-Clause-Clear CC-BY-SA-2.0 GPL-2.0 LGPL-2.0 LGPL-2.1 MIT OpenSSL PHP-3.01 Zend-2.0 Zlib bzip2-1.0.6
 Requires: hhvm-bin
 Requires: hhvm-data
+Requires: hhvm-config
 BuildRequires : boost-dev
 BuildRequires : bzip2-dev
 BuildRequires : cmake
@@ -72,14 +75,12 @@ BuildRequires : tbb-dev
 %define __strip /usr/bin/eu-strip -S
 %define debug_package %{nil}
 Patch1: 0001-fix_70932.patch
-Patch2: 0002-Work-around-gcc-compiler-bug.patch
-Patch3: 0003-Ocaml-compatability.patch
 Patch4: 0004-Build-break-typing.ml-remove-unused-module.patch
 Patch5: 0005-Build-Break-typing.ml-remove-unused-module.patch
 Patch6: 0006-Build-break-typing_env.ml-remove-unused-modules.patch
 Patch7: 0007-build-fix-ignore-logical-or-errors.patch
 Patch8: 0008-Disable-RC4-algorithm-fallback-for-signature-checks.patch
-Patch9: 0009-ocaml-ignore-warn_err.patch
+Patch10: 0010-Stateless-Make-hhvm-more-stateless.patch
 
 %description
 Thrift is a software framework for scalable cross-language services
@@ -95,6 +96,14 @@ Requires: hhvm-data
 
 %description bin
 bin components for the hhvm package.
+
+
+%package config
+Summary: config components for the hhvm package.
+Group: Default
+
+%description config
+config components for the hhvm package.
 
 
 %package data
@@ -174,14 +183,12 @@ mv %{_topdir}/BUILD/mysql-5.6-a9e580b5a0baa768210ef10544c8fab52003ec0b/* %{_topd
 mkdir -p %{_topdir}/BUILD/hhvm-HHVM-3.17.2/third-party/webscalesqlclient/mysql-5.6/rocksdb
 mv %{_topdir}/BUILD/rocksdb-dcc898b0215cee3b1baa88149c1f39e37e9bfd09/* %{_topdir}/BUILD/hhvm-HHVM-3.17.2/third-party/webscalesqlclient/mysql-5.6/rocksdb
 %patch1 -p1
-##%patch2 -p1
-##%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
-##%patch9 -p1
+%patch10 -p1
 
 %build
 export LANG=C
@@ -190,9 +197,6 @@ mkdir clr-build
 pushd clr-build
 CXXFLAGS=${CXXFLAGS// -Wl,--copy-dt-needed-entries/}
 CFLAGS=${CFLAGS// -Wl,--copy-dt-needed-entries/}
-export CFLAGS="$CFLAGS -std=gnu++98 "
-export FCFLAGS="$CFLAGS -std=gnu++98 "
-export FFLAGS="$CFLAGS -std=gnu++98 "
 export CXXFLAGS="$CXXFLAGS -std=gnu++98 "
 cmake .. -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SHARED_LIBS:BOOL=ON -DLIB_INSTALL_DIR:PATH=%{_libdir} -DCMAKE_AR=/usr/bin/gcc-ar -DLIB_SUFFIX=64 -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_RANLIB=/usr/bin/gcc-ranlib -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib64 -Wno-dev -DMYSQL_UNIX_SOCK_ADDR=/run/mariadb/mariadb.sock -DENABLE_ZEND_COMPAT=FALSE -DENABLE_EXTENSION_MCRYPT:BOOL=OFF
 make VERBOSE=1 %{?_smp_mflags}
@@ -204,6 +208,10 @@ rm -rf %{buildroot}
 pushd clr-build
 %make_install
 popd
+mkdir -p %{buildroot}/usr/share/defaults/hhvm
+install -m0644 %{SOURCE18} %{buildroot}/usr/share/defaults/hhvm/server.ini
+mkdir -p %{buildroot}/usr/lib/systemd/system
+install -m0644 %{SOURCE20} %{buildroot}/usr/lib/systemd/system/hhvm.service
 
 %files
 %defattr(-,root,root,-)
@@ -222,6 +230,11 @@ popd
 /usr/bin/hhvm-gdb
 /usr/bin/hhvm-repo-mode
 /usr/bin/hphpize
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/systemd/system/hhvm.service
+/usr/share/defaults/hhvm/server.ini
 
 %files data
 %defattr(-,root,root,-)

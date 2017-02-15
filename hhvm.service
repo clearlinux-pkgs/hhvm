@@ -1,0 +1,14 @@
+
+[Unit]
+Description=The HipHop Virtual Machine
+After=syslog.target network.target
+
+[Service]
+PIDFile=/run/hhvm/hhvm.pid
+ExecStartPre=/usr/bin/mkdir -p /run/hhvm /var/lib/hhvm /var/log/hhvm
+ExecStartPre=/usr/bin/chown hhvm /var/lib/hhvm /run/hhvm
+ExecStart=/usr/bin/hhvm -m server
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
